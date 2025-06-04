@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NZWalks.API.Data;
 using NZWalks.API.Models.Domain;
+using NZWalks.API.Models.DTO;
 
 namespace NZWalks.API.Controllers
 {
@@ -22,26 +23,25 @@ namespace NZWalks.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var regions = dbContext.Regions.ToList();
+            // Get Data from DB - Domain models
+            var regionsDomain = dbContext.Regions.ToList();
 
-            //var regions = new List<Region>
-            //{
-            //    new Region
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        Name = "Uttar Pradesh",
-            //        Code = "UP",
-            //        RegionImageUrl = "https://media.istockphoto.com/id/952763206/photo/taj-mahal-agra-india.jpg?s=2048x2048&w=is&k=20&c=mRe_PPha6JTgIJf6-w96qZMImqQh4O_GQ14Y-Sq4cR0="
-            //    },
-            //    new Region
-            //    {
-            //        Id = Guid.NewGuid(),
-            //        Name = "Himachal Pradesh",
-            //        Code = "HP",
-            //        RegionImageUrl = "https://media.istockphoto.com/id/537988165/photo/varanasi.jpg?s=1024x1024&w=is&k=20&c=zlypUzvUt1fFpvA7ESTKB6UE4KEY7paAizZWVhQmz2E="
-            //    },
-            //};
-            return Ok(regions);
+            // Map Domain models to DTOs
+            var regionsDto = new List<RegionDto>();
+            foreach (var regionDomain in regionsDomain)
+            {
+                regionsDto.Add(new RegionDto()
+                {
+                    Id = regionDomain.Id,
+                    Code = regionDomain.Code,
+                    Name = regionDomain.Name,
+                    RegionImageUrl = regionDomain.RegionImageUrl,
+
+                });
+            }
+
+            // Return DTOs
+            return Ok(regionsDto);
         }
 
         // GET Single Region (Get region by id)
@@ -50,15 +50,27 @@ namespace NZWalks.API.Controllers
         [Route("{id:Guid}")]
         public IActionResult GetById([FromRoute] Guid id)
         {
-            var region = dbContext.Regions.Find(id);
+            //var regionDomain = dbContext.Regions.Find(id);
+            // Get region Domain model from database
+            var regionDomain = dbContext.Regions.FirstOrDefault(x => x.Id == id);
 
-            //var region = dbContext.Regions.FirstOrDefault(x => x.Id == id);
-
-            if (region == null)
+            if (regionDomain == null)
             {
                 return NotFound();
             }
-            return Ok(region);
+
+            // Map convert region domain model to region Dto
+            var regionDto = new RegionDto
+            {
+                Id = regionDomain.Id,
+                Code = regionDomain.Code,
+                Name = regionDomain.Name,
+                RegionImageUrl = regionDomain.RegionImageUrl,
+
+            };
+
+            //return DTO back to client
+            return Ok(regionDomain);
         }
 
     }
