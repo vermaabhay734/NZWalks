@@ -167,3 +167,5 @@ E:\proejct 2025\dotnet related\NZWalks\NZWalks\NZWalks.API\bin\Debug\net8.0\runt
 E:\proejct 2025\dotnet related\NZWalks\NZWalks\NZWalks.API\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 E:\proejct 2025\dotnet related\NZWalks\NZWalks\NZWalks.API\obj\Debug\net8.0\NZWalks.API.sourcelink.json
 E:\proejct 2025\dotnet related\NZWalks\NZWalks\NZWalks.API\bin\Debug\net8.0\AutoMapper.dll
+E:\proejct 2025\dotnet related\NZWalks\NZWalks\NZWalks.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\proejct 2025\dotnet related\NZWalks\NZWalks\NZWalks.API\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
